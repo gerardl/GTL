@@ -12,5 +12,6 @@ namespace GTL.Lib.ViewModels
         public string ImageUrl { get; set; }
         public string RepositoryUrl { get; set; }
         public string DemoUrl { get; set; }
+        public List<ProjectTagViewModel> ProjectTags { get; set; }
     }
 }
