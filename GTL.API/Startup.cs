@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GTL.Lib.Models;
+using GTL.Lib.Services;
+using GTL.Lib.Repositories;
 
 namespace GTL.API
 {
@@ -37,6 +39,12 @@ namespace GTL.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GTL", Version = "v1" });
             });
+
+            // Add custom services
+            services.AddTransient<IPortfolioService, PortfolioService>();
+
+            // Add custom repositories
+            services.AddTransient<IPortfolioRepository, PortfolioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

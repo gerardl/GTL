@@ -14,6 +14,9 @@ namespace GTL.Lib.Models.Portfolio
         public string Name { get; set; }
         [MaxLength(4000)]
         public string Description { get; set; }
+        public DateTime DateCreated { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DateDeleted { get; set; }
 
         public List<ProjectTag> ProjectTags { get; set; }
     }

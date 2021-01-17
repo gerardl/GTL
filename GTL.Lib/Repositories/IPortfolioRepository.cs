@@ -10,5 +10,13 @@ namespace GTL.Lib.Repositories
     {
         Task<List<Project>> GetProjects();
         Task DeleteProject(int Id);
+        Task<Project> AddProject(Project project);
+        Task<Project> UpdateProject(Project project);
+        Task<ProjectTag> AddProjectTag(ProjectTag projectTag);
+        Task DeleteProjectTag(int Id);
+        Task<List<Tag>> GetTags();
+        Task<Tag> AddTag(Tag tag);
+        Task<Tag> UpdateTag(Tag tag);
+        Task DeleteTag(int Id);
     }
 }

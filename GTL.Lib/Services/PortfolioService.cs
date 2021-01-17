@@ -10,12 +10,10 @@ namespace GTL.Lib.Services
     public class PortfolioService : IPortfolioService
     {
         private readonly IPortfolioRepository _portfolioRepository;
-        private readonly IGenericRepository _genericRepository;
-
-        public PortfolioService(IPortfolioRepository portfolioRepository, IGenericRepository genericRepository)
+        
+        public PortfolioService(IPortfolioRepository portfolioRepository)
         {
             _portfolioRepository = portfolioRepository;
-            _genericRepository = genericRepository;
         }
 
         public async Task<List<Project>> GetProjects()
@@ -25,17 +23,47 @@ namespace GTL.Lib.Services
 
         public async Task<Project> AddProject(Project project)
         {
-            return await _genericRepository.AddEntityAsync(project);
+            return await _portfolioRepository.AddProject(project);
         }
 
         public async Task<Project> UpdateProject(Project project)
         {
-            return await _genericRepository.UpdateEntityAsync(project);
+            return await _portfolioRepository.UpdateProject(project);
         }
 
         public async Task DeleteProject(int Id)
         {
             await _portfolioRepository.DeleteProject(Id);
+        }
+
+        public async Task<ProjectTag> AddProjectTag(ProjectTag projectTag)
+        {
+            return await _portfolioRepository.AddProjectTag(projectTag);
+        }
+
+        public async Task DeleteProjectTag(int Id)
+        {
+            await _portfolioRepository.DeleteProjectTag(Id);
+        }
+
+        public async Task<List<Tag>> GetTags()
+        {
+            return await _portfolioRepository.GetTags();
+        }
+
+        public async Task<Tag> AddTag(Tag tag)
+        {
+            return await _portfolioRepository.AddTag(tag);
+        }
+
+        public async Task<Tag> UpdateTag(Tag tag)
+        {
+            return await _portfolioRepository.UpdateTag(tag);
+        }
+
+        public async Task DeleteTag(int Id)
+        {
+            await _portfolioRepository.DeleteTag(Id);
         }
     }
 }

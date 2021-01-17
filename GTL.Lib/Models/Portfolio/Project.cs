@@ -23,6 +23,7 @@ namespace GTL.Lib.Models.Portfolio
         public DateTime DateCreated { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DateDeleted { get; set; }
+
         public List<ProjectTag> ProjectTags { get; set; }
     }
 }
