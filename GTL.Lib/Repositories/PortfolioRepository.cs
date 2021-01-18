@@ -40,7 +40,7 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                project.DateCreated = GetServerTime();
+                project.DateCreated = Utility.GetServerTime();
                 _context.Project.Add(project);
                 await _context.SaveChangesAsync();
                 return project;
@@ -55,7 +55,7 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                var toUpdate = _context.Project.SingleOrDefault(s => s.Id == project.Id);
+                var toUpdate = await _context.Project.FindAsync(project.Id);
                 if (toUpdate == null) throw new DatabaseKeyNotFoundException($"No project found with id: {project.Id}");
 
                 _context.Entry(toUpdate).CurrentValues.SetValues(project);
@@ -72,11 +72,11 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                var toDelete = await _context.Project.SingleOrDefaultAsync(s => s.Id == Id);
+                var toDelete = await _context.Project.FindAsync(Id);
                 if (toDelete == null) throw new DatabaseKeyNotFoundException($"No project found with id: {Id}");
 
                 toDelete.IsDeleted = true;
-                toDelete.DateDeleted = GetServerTime();
+                toDelete.DateDeleted = Utility.GetServerTime();
                 await _context.SaveChangesAsync();
             }
             catch (Exception)
@@ -103,7 +103,7 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                var toDelete = await _context.ProjectTag.SingleOrDefaultAsync(s => s.Id == Id);
+                var toDelete = await _context.ProjectTag.FindAsync(Id);
                 if (toDelete == null) throw new DatabaseKeyNotFoundException($"No project tag found with id: {Id}");
 
                 _context.ProjectTag.Remove(toDelete);
@@ -133,7 +133,7 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                tag.DateCreated = GetServerTime();
+                tag.DateCreated = Utility.GetServerTime();
                 _context.Tag.Add(tag);
                 await _context.SaveChangesAsync();
                 return tag;
@@ -148,7 +148,7 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                var toUpdate = _context.Tag.SingleOrDefault(s => s.Id == tag.Id);
+                var toUpdate = await _context.Tag.FindAsync(tag.Id);
                 if (toUpdate == null) throw new DatabaseKeyNotFoundException($"No tag found with id: {tag.Id}");
 
                 _context.Entry(toUpdate).CurrentValues.SetValues(tag);
@@ -165,11 +165,11 @@ namespace GTL.Lib.Repositories
         {
             try
             {
-                var toDelete = await _context.Tag.SingleOrDefaultAsync(s => s.Id == Id);
+                var toDelete = await _context.Tag.FindAsync(Id);
                 if (toDelete == null) throw new DatabaseKeyNotFoundException($"No tag found with id: {Id}");
 
                 toDelete.IsDeleted = true;
-                toDelete.DateDeleted = GetServerTime();
+                toDelete.DateDeleted = Utility.GetServerTime();
                 await _context.SaveChangesAsync();
             }
             catch (Exception)
@@ -178,9 +178,5 @@ namespace GTL.Lib.Repositories
             }
         }
 
-        private DateTime GetServerTime()
-        {
-            return DateTime.UtcNow;
-        }
     }
 }
